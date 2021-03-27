@@ -52,7 +52,11 @@ module Types =
                 | QString s -> "\"" + s + "\""
                 | String s -> s
                 | Bool b -> if b then "yes" else "no"
-                | Float f -> f.ToString(CultureInfo.InvariantCulture)
+                | Float f -> 
+                    if truncate(f) = f then
+                        f.ToString(CultureInfo.InvariantCulture) + ".0"
+                    else
+                        f.ToString(CultureInfo.InvariantCulture)
                 | Int i -> sprintf "%i" i
 
 
@@ -62,7 +66,11 @@ module Types =
             | QString s -> s
             | String s -> s
             | Bool b -> if b then "yes" else "no"
-            | Float f -> f.ToString(CultureInfo.InvariantCulture)
+            | Float f -> 
+                    if truncate(f) = f then
+                        f.ToString(CultureInfo.InvariantCulture) + ".0"
+                    else 
+                        f.ToString(CultureInfo.InvariantCulture)
             | Int i -> sprintf "%i" i
     and [<CustomEquality; NoComparison; Struct>] PosKeyValue  =
         | PosKeyValue of range * KeyValueItem
